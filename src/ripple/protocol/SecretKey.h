@@ -155,9 +155,6 @@ std::pair<PublicKey, SecretKey>
 randomKeyPair (KeyType type);
 
 /** Generate a signature for a message digest.
-    This can only be used with secp256k1 since Ed25519's
-    security properties come, in part, from how the message
-    is hashed.
 */
 /** @{ */
 Buffer

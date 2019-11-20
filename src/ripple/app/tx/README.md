@@ -74,10 +74,6 @@ were a regular transaction. The resulting signature will be stored as a triple
 of { signing-account, signer-public-key, signature } in an array of signatures
 associated with this transaction.
 
-The advantage of this is that we can reuse the existing signing and
-verification code, and leverage the work that will go towards implementing
-support for the Ed25519 elliptic curve.
-
 ### Fees ###
 Multi-signature transactions impose a heavier load on the network and should
 claim higher fees.

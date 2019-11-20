@@ -36,7 +36,7 @@ namespace ripple {
 
 // {
 //   secret_key: <signing_secret_key>
-//   key_type: optional; either ed25519 or secp256k1 (default to secp256k1)
+//   key_type: optional; secp256k1 (default to secp256k1)
 //   channel_id: 256-bit channel id
 //   drops: 64-bit uint (as string)
 // }

@@ -39,8 +39,7 @@ enum class Type
     preimageSha256 = 0,
     prefixSha256 = 1,
     thresholdSha256 = 2,
-    rsaSha256 = 3,
-    ed25519Sha256 = 4
+    rsaSha256 = 3
 };
 
 class Condition

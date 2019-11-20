@@ -37,12 +37,6 @@
 #include <ripple/beast/clock/basic_seconds_clock.h>
 #include <ripple/beast/core/CurrentThreadName.h>
 
-#include <beast/unit_test/dstream.hpp>
-#include <beast/unit_test/global_suites.hpp>
-#include <beast/unit_test/match.hpp>
-#include <beast/unit_test/reporter.hpp>
-#include <test/unit_test/multi_runner.h>
-
 #include <google/protobuf/stubs/common.h>
 
 #include <boost/filesystem.hpp>
@@ -171,123 +165,6 @@ void printHelp (const po::options_description& desc)
 
 //------------------------------------------------------------------------------
 
-/* simple unit test selector that allows a comma separated list
- * of selectors
- */
-class multi_selector
-{
-private:
-    std::vector<beast::unit_test::selector> selectors_;
-public:
-    explicit
-    multi_selector(std::string const& patterns = "")
-    {
-        std::vector<std::string> v;
-        boost::split (v, patterns, boost::algorithm::is_any_of (","));
-        selectors_.reserve(v.size());
-        std::for_each(v.begin(), v.end(),
-            [this](std::string s)
-            {
-                boost::trim (s);
-                if (selectors_.empty() || !s.empty())
-                    selectors_.emplace_back(
-                        beast::unit_test::selector::automatch, s);
-            });
-    }
-
-    bool
-    operator()(beast::unit_test::suite_info const& s)
-    {
-        for (auto& sel : selectors_)
-            if (sel(s))
-                return true;
-        return false;
-    }
-};
-
-namespace test{ extern std::atomic<bool> envUseIPv4; }
-
-static int runUnitTests(
-    std::string const& pattern,
-    std::string const& argument,
-    bool quiet,
-    bool log,
-    bool child,
-    bool ipv6,
-    std::size_t num_jobs,
-    int argc,
-    char** argv)
-{
-    using namespace beast::unit_test;
-    using namespace ripple::test;
-
-    ripple::test::envUseIPv4 = (! ipv6);
-
-    if (!child && num_jobs == 1)
-    {
-        multi_runner_parent parent_runner;
-
-        multi_runner_child child_runner{num_jobs, quiet, log};
-        child_runner.arg(argument);
-        auto const any_failed = child_runner.run_multi(multi_selector(pattern));
-
-        if (any_failed)
-            return EXIT_FAILURE;
-        return EXIT_SUCCESS;
-    }
-    if (!child)
-    {
-        multi_runner_parent parent_runner;
-        std::vector<boost::process::child> children;
-
-        std::string const exe_name = argv[0];
-        std::vector<std::string> args;
-        {
-            args.reserve(argc);
-            for (int i = 1; i < argc; ++i)
-                args.emplace_back(argv[i]);
-            args.emplace_back("--unittest-child");
-        }
-
-        for (std::size_t i = 0; i < num_jobs; ++i)
-            children.emplace_back(
-                boost::process::exe = exe_name, boost::process::args = args);
-
-        int bad_child_exits = 0;
-        for(auto& c : children)
-        {
-            try
-            {
-                c.wait();
-                if (c.exit_code())
-                    ++bad_child_exits;
-            }
-            catch (...)
-            {
-                // wait throws if process was terminated with a signal
-                ++bad_child_exits;
-            }
-        }
-
-        if (parent_runner.any_failed() || bad_child_exits)
-            return EXIT_FAILURE;
-        return EXIT_SUCCESS;
-    }
-    else
-    {
-        // child
-        multi_runner_child runner{num_jobs, quiet, log};
-        runner.arg(argument);
-        auto const anyFailed = runner.run_multi(multi_selector(pattern));
-
-        if (anyFailed)
-            return EXIT_FAILURE;
-        return EXIT_SUCCESS;
-    }
-}
-
-//------------------------------------------------------------------------------
-
 int run (int argc, char** argv)
 {
     using namespace std;
@@ -359,31 +236,6 @@ int run (int argc, char** argv)
         "Specify the port number for RPC command.")
     ;
 
-    po::options_description test ("Unit Test Options");
-    test.add_options()
-    ("quiet,q",
-        "Suppress test suite messages, "
-        "including suite/case name (at start) and test log messages.")
-    ("unittest,u", po::value <std::string> ()->implicit_value (""),
-        "Perform unit tests. The optional argument specifies one or "
-        "more comma-separated selectors. Each selector specifies a suite name, "
-        "full-name (lib.module.suite), module, or library "
-        "(checked in that ""order).")
-    ("unittest-arg", po::value <std::string> ()->implicit_value (""),
-        "Supplies an argument string to unit tests. If provided, this argument "
-        "is made available to each suite that runs. Interpretation of the "
-        "argument is handled individually by any suite that accesses it -- "
-        "as such, it typically only make sense to provide this when running "
-        "a single suite.")
-    ("unittest-ipv6", "Use IPv6 localhost when running unittests (default is IPv4).")
-    ("unittest-log",
-        "Force unit test log message output. Only useful in combination with "
-        "--quiet, in which case log messages will print but suite/case names "
-        "will not.")
-    ("unittest-jobs", po::value <std::size_t> (),
-        "Number of unittest jobs to run in parallel (child processes).")
-    ;
-
     // These are hidden options, not intended to be shown in the usage/help message
     po::options_description hidden ("Hidden Options");
     hidden.add_options()
@@ -391,8 +243,6 @@ int run (int argc, char** argv)
         "Specify rpc command and parameters. This option must be repeated "
         "for each command/param. Positional parameters also serve this purpose, "
         "so this option is not needed for users")
-    ("unittest-child",
-        "For internal use only when spawning child unit test processes.")
     ;
 
     // Interpret positional arguments as --parameters.
@@ -400,10 +250,10 @@ int run (int argc, char** argv)
     p.add ("parameters", -1);
 
     po::options_description all;
-    all.add(gen).add(rpc).add(data).add(test).add(hidden);
+    all.add(gen).add(rpc).add(data).add(hidden);
 
     po::options_description desc;
-    desc.add(gen).add(rpc).add(data).add(test);
+    desc.add(gen).add(rpc).add(data);
 
     // Parse options, if no error.
     try
@@ -433,43 +283,6 @@ int run (int argc, char** argv)
         std::cout << "rippled version " <<
             BuildInfo::getVersionString () << std::endl;
         return 0;
-    }
-
-    // Run the unit tests if requested.
-    // The unit tests will exit the application with an appropriate return code.
-    //
-    if (vm.count ("unittest"))
-    {
-        std::string argument;
-
-        if (vm.count("unittest-arg"))
-            argument = vm["unittest-arg"].as<std::string>();
-
-        std::size_t numJobs = 1;
-        bool unittestChild = false;
-        if (vm.count("unittest-jobs"))
-            numJobs = std::max(numJobs, vm["unittest-jobs"].as<std::size_t>());
-        unittestChild = bool (vm.count("unittest-child"));
-
-        return runUnitTests(
-            vm["unittest"].as<std::string>(), argument,
-            bool (vm.count ("quiet")),
-            bool (vm.count ("unittest-log")),
-            unittestChild,
-            bool (vm.count ("unittest-ipv6")),
-            numJobs,
-            argc,
-            argv);
-    }
-    else
-    {
-        if (vm.count("unittest-jobs"))
-        {
-            // unittest jobs only makes sense with `unittest`
-            std::cerr << "rippled: '--unittest-jobs' specified without '--unittest'.\n";
-            std::cerr << "To run the unit tests the '--unittest' option must be present.\n";
-            return 1;
-        }
     }
 
     auto config = std::make_unique<Config>();

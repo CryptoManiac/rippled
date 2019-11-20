@@ -28,7 +28,6 @@
 #include <ripple/rpc/Context.h>
 #include <ripple/rpc/impl/RPCHelpers.h>
 #include <ripple/rpc/handlers/WalletPropose.h>
-#include <ed25519-donna/ed25519.h>
 #include <boost/optional.hpp>
 #include <cmath>
 #include <map>
@@ -88,28 +87,6 @@ Json::Value walletPropose (Json::Value const& params)
 
         if (!keyType)
             return rpcError(rpcINVALID_PARAMS);
-    }
-
-    // ripple-lib encodes seed used to generate an Ed25519 wallet in a
-    // non-standard way. While we never encode seeds that way, we try
-    // to detect such keys to avoid user confusion.
-    {
-        if (params.isMember(jss::passphrase))
-            seed = RPC::parseRippleLibSeed(params[jss::passphrase]);
-        else if (params.isMember(jss::seed))
-            seed = RPC::parseRippleLibSeed(params[jss::seed]);
-
-        if(seed)
-        {
-            rippleLibSeed = true;
-
-            // If the user *explicitly* requests a key type other than
-            // Ed25519 we return an error.
-            if (keyType.value_or(KeyType::ed25519) != KeyType::ed25519)
-                return rpcError(rpcBAD_SEED);
-
-            keyType = KeyType::ed25519;
-        }
     }
 
     if (!seed)

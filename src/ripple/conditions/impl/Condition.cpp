@@ -45,8 +45,7 @@ namespace detail {
 //      preimageSha256   [0] SimpleSha256Condition,
 //      prefixSha256     [1] CompoundSha256Condition,
 //      thresholdSha256  [2] CompoundSha256Condition,
-//      rsaSha256        [3] SimpleSha256Condition,
-//      ed25519Sha256    [4] SimpleSha256Condition
+//      rsaSha256        [3] SimpleSha256Condition
 //    }
 //
 //    SimpleSha256Condition ::= SEQUENCE {
@@ -64,8 +63,7 @@ namespace detail {
 //      preImageSha256   (0),
 //      prefixSha256     (1),
 //      thresholdSha256  (2),
-//      rsaSha256        (3),
-//      ed25519Sha256    (4)
+//      rsaSha256        (3)
 //    }
 
 constexpr std::size_t fingerprintSize = 32;
@@ -160,8 +158,7 @@ Condition::deserialize(Slice s, std::error_code& ec)
     //     preimageSha256   [0] SimpleSha256Condition,
     //     prefixSha256     [1] CompoundSha256Condition,
     //     thresholdSha256  [2] CompoundSha256Condition,
-    //     rsaSha256        [3] SimpleSha256Condition,
-    //     ed25519Sha256    [4] SimpleSha256Condition
+    //     rsaSha256        [3] SimpleSha256Condition
     // }
     if (s.empty())
     {
@@ -216,10 +213,6 @@ Condition::deserialize(Slice s, std::error_code& ec)
         return {};
 
     case 3: // RsaSha256
-        ec = error::unsupported_type;
-        return {};
-
-    case 4: // Ed25519Sha256
         ec = error::unsupported_type;
         return {};
 

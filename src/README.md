@@ -17,10 +17,8 @@ Source folders:
 | Folder          | Upstream Repo                                | Description |
 |:----------------|:---------------------------------------------|:------------|
 | `beast`         | N/A                                          | legacy utility code that was formerly associated with boost::beast
-| `ed25519-donna` | https://github.com/floodyberry/ed25519-donna | [Ed25519](http://ed25519.cr.yp.to/) digital signatures |
 | `ripple`        | N/A                                          | **Core source code for `rippled`** |
 | `secp256k1`     | https://github.com/bitcoin-core/secp256k1    | ECDSA digital signatures using the **secp256k1** curve |
-| `test`          | N/A                                          | **Unit tests for `rippled`** |
 
 The following dependencies are downloaded and built using ExternalProject
 (or FetchContent, where possible). Refer to CMakeLists.txt file for

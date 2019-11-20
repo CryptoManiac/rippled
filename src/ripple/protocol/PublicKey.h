@@ -43,18 +43,13 @@ namespace ripple {
     information needed to determine the cryptosystem
     parameters used is stored inside the key.
 
-    As of this writing two systems are supported:
+    As of this writing one system is supported:
 
         secp256k1
-        ed25519
 
     secp256k1 public keys consist of a 33 byte
     compressed public key, with the lead byte equal
     to 0x02 or 0x03.
-
-    The ed25519 public keys consist of a 1 byte
-    prefix constant 0xED, followed by 32 bytes of
-    public key data.
 */
 class PublicKey
 {

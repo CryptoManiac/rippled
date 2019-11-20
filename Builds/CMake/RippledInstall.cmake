@@ -5,7 +5,6 @@
 install (
   TARGETS
     secp256k1
-    ed25519-donna
     common
     opts
     ripple_syslibs

@@ -149,8 +149,8 @@ validate (
 
     When using such triggers, it is recommended that the
     trigger be of type preimage, prefix or threshold. If
-    a signature type is used (i.e. Ed25519 or RSA-SHA256)
-    then the Ed25519 or RSA keys should be single-use keys.
+    a signature type is used (i.e. RSA-SHA256)
+    then the RSA keys should be single-use keys.
 
     @param f The fulfillment
     @param c The condition

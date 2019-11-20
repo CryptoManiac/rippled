@@ -449,25 +449,6 @@ readLimitField(unsigned int& limit, Tuning::LimitRange const& range,
 }
 
 boost::optional<Seed>
-parseRippleLibSeed(Json::Value const& value)
-{
-    // ripple-lib encodes seed used to generate an Ed25519 wallet in a
-    // non-standard way. While rippled never encode seeds that way, we
-    // try to detect such keys to avoid user confusion.
-    if (!value.isString())
-        return boost::none;
-
-    auto const result = decodeBase58Token(value.asString(), TokenType::None);
-
-    if (result.size() == 18 &&
-            static_cast<std::uint8_t>(result[0]) == std::uint8_t(0xE1) &&
-            static_cast<std::uint8_t>(result[1]) == std::uint8_t(0x4B))
-        return Seed(makeSlice(result.substr(2)));
-
-    return boost::none;
-}
-
-boost::optional<Seed>
 getSeedFromRPC(Json::Value const& params, Json::Value& error)
 {
     // The array should be constexpr, but that makes Visual Studio unhappy.
@@ -603,28 +584,6 @@ keypairForSignature(Json::Value const& params, Json::Value& error)
         }
     }
 
-    // ripple-lib encodes seed used to generate an Ed25519 wallet in a
-    // non-standard way. While we never encode seeds that way, we try
-    // to detect such keys to avoid user confusion.
-    if (secretType != jss::seed_hex.c_str())
-    {
-        seed = RPC::parseRippleLibSeed(params[secretType]);
-
-        if (seed)
-        {
-            // If the user passed in an Ed25519 seed but *explicitly*
-            // requested another key type, return an error.
-            if (keyType.value_or(KeyType::ed25519) != KeyType::ed25519)
-            {
-                error = RPC::make_error (rpcBAD_SEED,
-                    "Specified seed is for an Ed25519 wallet.");
-                return { };
-            }
-
-            keyType = KeyType::ed25519;
-        }
-    }
-
     if (!keyType)
         keyType = KeyType::secp256k1;
 
@@ -655,7 +614,7 @@ keypairForSignature(Json::Value const& params, Json::Value& error)
         return { };
     }
 
-    if (keyType != KeyType::secp256k1 && keyType != KeyType::ed25519)
+    if (keyType != KeyType::secp256k1)
         LogicError ("keypairForSignature: invalid key type");
 
     return generateKeyPair (*keyType, *seed);
