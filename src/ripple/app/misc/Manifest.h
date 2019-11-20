@@ -35,7 +35,7 @@ namespace ripple {
 
     Suppose the secret keys installed on a Ripple validator are compromised.  Not
     only do you have to generate and install new key pairs on each validator,
-    EVERY rippled needs to have its config updated with the new public keys, and
+    EVERY rmcd needs to have its config updated with the new public keys, and
     is vulnerable to forged validation signatures until this is done.  The
     solution is a new layer of indirection: A master secret key under
     restrictive access control is used to sign a "manifest": essentially, a
@@ -57,11 +57,11 @@ namespace ripple {
     seen for that validator, if any.  On startup, the [validator_token] config
     entry (which contains the manifest for this validator) is decoded and
     added to the manifest cache.  Other manifests are added as "gossip"
-    received from rippled peers.
+    received from rmcd peers.
 
     When an ephemeral key is compromised, a new signing key pair is created,
     along with a new manifest vouching for it (with a higher sequence number),
-    signed by the master key.  When a rippled peer receives the new manifest,
+    signed by the master key.  When a rmcd peer receives the new manifest,
     it verifies it with the master key and (assuming it's valid) discards the
     old ephemeral key and stores the new one.  If the master key itself gets
     compromised, a manifest with sequence number 0xFFFFFFFF will supersede a

@@ -891,8 +891,8 @@ ServerHandlerImp::statusResponse(
     {
         msg.result(boost::beast::http::status::ok);
         msg.body() = "<!DOCTYPE html><html><head><title>" + systemName() +
-            " Test page for rippled</title></head><body><h1>" +
-                systemName() + " Test</h1><p>This page shows rippled http(s) "
+            " Test page for rmcd</title></head><body><h1>" +
+                systemName() + " Test</h1><p>This page shows rmcd http(s) "
                     "connectivity is working.</p></body></html>";
     }
     else

@@ -3,10 +3,10 @@
 ## Introduction
 
 The _Ripple payment network_ consists of a collection of _peers_ running
-**rippled**. Each peer maintains multiple outgoing connections and optional
+**rmcd**. Each peer maintains multiple outgoing connections and optional
 incoming connections to other peers. These connections are made over both
 the public Internet and private local area networks. This network defines a
-fully connected directed graph of nodes where vertices are instances of rippled
+fully connected directed graph of nodes where vertices are instances of rmcd
 and edges are persistent TCP/IP connections. Peers send and receive messages to
 other connected peers. This peer to peer network, layered on top of the public
 and private Internet, forms an [_overlay network_][overlay_network]. The
@@ -60,7 +60,7 @@ custom fields to communicate protocol specific information:
 
 ```
 GET / HTTP/1.1
-User-Agent: rippled-0.27.0
+User-Agent: rmcd-0.27.0
 Local-Address: 192.168.0.101:8421
 Upgrade: RTXP/1.2, RTXP/1.3
 Connection: Upgrade
@@ -75,7 +75,7 @@ HTTP response indicating the connection status:
 
 ```
 HTTP/1.1 101 Switching Protocols
-Server: rippled-0.27.0
+Server: rmcd-0.27.0
 Remote-Address: 63.104.209.13
 Upgrade: RTXP/1.2
 Connection: Upgrade
@@ -92,7 +92,7 @@ servers that may have open slots:
 
 ```
 HTTP/1.1 503 Service Unavailable
-Server: rippled-0.27.0
+Server: rmcd-0.27.0
 Remote-Address: 63.104.209.13
 Content-Length: 253
 Content-Type: application/json
@@ -179,7 +179,7 @@ Content-Type: application/json
 
 * _User Defined_ (Unimplemented)
 
-    The rippled operator may specify additional, optional fields and values
+    The rmcd operator may specify additional, optional fields and values
     through the configuration. These headers will be transmitted in the
     corresponding request or response messages.
 
@@ -202,7 +202,7 @@ command.  The key is in the `pubkey_node` value, and is a text string
 beginning with the letter `n`.  The key is maintained across runs in a
 database.
 
-Cluster members are configured in the `rippled.cfg` file under
+Cluster members are configured in the `rmcd.cfg` file under
 `[cluster_nodes]`.  Each member should be configured on a line beginning
 with the node public key, followed optionally by a space and a friendly
 name.

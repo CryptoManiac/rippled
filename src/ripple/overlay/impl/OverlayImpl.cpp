@@ -557,7 +557,7 @@ OverlayImpl::onPrepare()
                 m_peerFinder->addFallbackStrings (base + name, ips);
         });
 
-    // Add the ips_fixed from the rippled.cfg file
+    // Add the ips_fixed from the rmcd.cfg file
     if (! app_.config().standalone() && !app_.config().IPS_FIXED.empty ())
     {
         m_resolver.resolve (app_.config().IPS_FIXED,

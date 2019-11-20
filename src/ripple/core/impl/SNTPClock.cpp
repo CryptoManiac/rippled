@@ -195,7 +195,7 @@ public:
 
     void doRun ()
     {
-        beast::setCurrentThreadName("rippled: SNTPClock");
+        beast::setCurrentThreadName("rmcd: SNTPClock");
         io_service_.run();
     }
 

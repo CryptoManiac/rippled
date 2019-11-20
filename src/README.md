@@ -1,13 +1,13 @@
-# rippled Source
+# rmcd Source
 
 Some of these directories come from entire outside repositories brought in
 using [git-subtree][]. This means that the source files are inserted directly
-into the `rippled` repository. They can be edited and committed just as if they
+into the `rmcd` repository. They can be edited and committed just as if they
 were normal files.
 [git-subtree]: https://github.com/apenwarr/git-subtree
 
 If you create a commit that contains files both from a subtree, and from the
-`rippled` source tree, please use care when designing the commit message, since
+`rmcd` source tree, please use care when designing the commit message, since
 it will appear in the subtree's individual repository when the changes are
 pushed back to the upstream. Better yet, do not mix files from subtrees and
 `ripple` in the same commit at all.
@@ -17,7 +17,7 @@ Source folders:
 | Folder          | Upstream Repo                                | Description |
 |:----------------|:---------------------------------------------|:------------|
 | `beast`         | N/A                                          | legacy utility code that was formerly associated with boost::beast
-| `ripple`        | N/A                                          | **Core source code for `rippled`** |
+| `ripple`        | N/A                                          | **Core source code for `rmcd`** |
 | `secp256k1`     | https://github.com/bitcoin-core/secp256k1    | ECDSA digital signatures using the **secp256k1** curve |
 
 The following dependencies are downloaded and built using ExternalProject

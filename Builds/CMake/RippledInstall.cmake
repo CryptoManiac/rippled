@@ -26,8 +26,8 @@ write_basic_package_version_file (
   COMPATIBILITY SameMajorVersion)
 
 if (is_root_project)
-  install (TARGETS rippled RUNTIME DESTINATION bin)
-  set_target_properties(rippled PROPERTIES INSTALL_RPATH_USE_LINK_PATH ON)
+  install (TARGETS rmcd RUNTIME DESTINATION bin)
+  set_target_properties(rmcd PROPERTIES INSTALL_RPATH_USE_LINK_PATH ON)
   install (
     FILES
       ${CMAKE_CURRENT_SOURCE_DIR}/Builds/CMake/RippleConfig.cmake
@@ -44,7 +44,7 @@ if (is_root_project)
         message (\"-- Skipping : \$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/\${DEST}/\${NEWNAME}\")
       endif ()
     endmacro()
-    copy_if_not_exists(\"${CMAKE_CURRENT_SOURCE_DIR}/cfg/rippled-example.cfg\" etc rippled.cfg)
+    copy_if_not_exists(\"${CMAKE_CURRENT_SOURCE_DIR}/cfg/rmcd-example.cfg\" etc rmcd.cfg)
     copy_if_not_exists(\"${CMAKE_CURRENT_SOURCE_DIR}/cfg/validators-example.txt\" etc validators.txt)
   ")
 endif ()

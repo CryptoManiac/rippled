@@ -1225,7 +1225,7 @@ public:
             {
                 JLOG(m_journal.fatal())
                     << "Free SQLite space for transaction db is less than "
-                       "512MB. To fix this, rippled must be executed with the "
+                       "512MB. To fix this, rmcd must be executed with the "
                        "vacuum <sqlitetmpdir> parameter before restarting. "
                        "Note that this activity can take multiple days, "
                        "depending on database size.";
@@ -1536,7 +1536,7 @@ bool ApplicationImp::setup()
         JLOG(m_journal.warn()) <<
             "*** been deprecated. They will be removed in a future release of";
         JLOG(m_journal.warn()) <<
-            "*** rippled.";
+            "*** rmcd.";
         JLOG(m_journal.warn()) <<
             "*** If you do not use them to sign transactions please edit your";
         JLOG(m_journal.warn()) <<

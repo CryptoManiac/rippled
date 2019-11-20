@@ -143,7 +143,7 @@ inline std::ostream& operator<< (std::ostream& os, AccountID const& x)
 /** Caches the base58 representations of AccountIDs
 
     This operation occurs with sufficient frequency to
-    justify having a cache. In the future, rippled should
+    justify having a cache. In the future, rmcd should
     require clients to receive "binary" results, where
     AccountIDs are hex-encoded.
 */

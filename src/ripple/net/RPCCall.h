@@ -57,7 +57,7 @@ void fromNetwork (
     std::unordered_map<std::string, std::string> headers = {});
 }
 
-/** Given a rippled command line, return the corresponding JSON.
+/** Given a rmcd command line, return the corresponding JSON.
 */
 Json::Value
 cmdLineToJSONRPC (std::vector<std::string> const& args, beast::Journal j);

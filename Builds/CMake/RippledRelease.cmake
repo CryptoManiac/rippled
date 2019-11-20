@@ -37,7 +37,7 @@ if (is_root_project)
       docker build
         --pull
         --build-arg GIT_COMMIT=${commit_hash}
-        -t rippled-rpm-builder:${container_label}
+        -t rmcd-rpm-builder:${container_label}
         $<$<BOOL:${rpm_cache_from}>:--cache-from=${rpm_cache_from}>
         -f centos-builder/Dockerfile .
       WORKING_DIRECTORY  ${CMAKE_CURRENT_SOURCE_DIR}/Builds/containers
@@ -49,26 +49,26 @@ if (is_root_project)
         Builds/containers/centos-builder/centos_setup.sh
         Builds/containers/centos-builder/extras.sh
         Builds/containers/shared/build_deps.sh
-        Builds/containers/shared/rippled.service
+        Builds/containers/shared/rmcd.service
         Builds/containers/shared/update_sources.sh
-        Builds/containers/shared/update-rippled.sh
-        Builds/containers/packaging/rpm/rippled.spec
+        Builds/containers/shared/update-rmcd.sh
+        Builds/containers/packaging/rpm/rmcd.spec
         Builds/containers/packaging/rpm/build_rpm.sh
     )
     exclude_from_default (rpm_container)
     add_custom_target (rpm
       docker run
-        -e NIH_CACHE_ROOT=/opt/rippled_bld/pkg/.nih_c
-        -v ${NIH_CACHE_ROOT}/pkgbuild:/opt/rippled_bld/pkg/.nih_c
-        -v ${CMAKE_SOURCE_DIR}:/opt/rippled_bld/pkg/rippled
-        -v ${CMAKE_CURRENT_BINARY_DIR}/packages:/opt/rippled_bld/pkg/out
+        -e NIH_CACHE_ROOT=/opt/rmcd_bld/pkg/.nih_c
+        -v ${NIH_CACHE_ROOT}/pkgbuild:/opt/rmcd_bld/pkg/.nih_c
+        -v ${CMAKE_SOURCE_DIR}:/opt/rmcd_bld/pkg/rmcd
+        -v ${CMAKE_CURRENT_BINARY_DIR}/packages:/opt/rmcd_bld/pkg/out
         "$<$<BOOL:${map_user}>:--volume=/etc/passwd:/etc/passwd;--volume=/etc/group:/etc/group;--user=${DOCKER_USER_ID}:${DOCKER_GROUP_ID}>"
-        -t rippled-rpm-builder:${container_label}
+        -t rmcd-rpm-builder:${container_label}
       VERBATIM
       USES_TERMINAL
       COMMAND_EXPAND_LISTS
       SOURCES
-        Builds/containers/packaging/rpm/rippled.spec
+        Builds/containers/packaging/rpm/rmcd.spec
     )
     exclude_from_default (rpm)
     if (NOT have_package_container)
@@ -86,7 +86,7 @@ if (is_root_project)
         --pull
         --build-arg DIST_TAG=16.04
         --build-arg GIT_COMMIT=${commit_hash}
-        -t rippled-dpkg-builder:${container_label}
+        -t rmcd-dpkg-builder:${container_label}
         $<$<BOOL:${dpkg_cache_from}>:--cache-from=${dpkg_cache_from}>
         -f ubuntu-builder/Dockerfile .
       WORKING_DIRECTORY  ${CMAKE_CURRENT_SOURCE_DIR}/Builds/containers
@@ -97,9 +97,9 @@ if (is_root_project)
         Builds/containers/ubuntu-builder/Dockerfile
         Builds/containers/ubuntu-builder/ubuntu_setup.sh
         Builds/containers/shared/build_deps.sh
-        Builds/containers/shared/rippled.service
+        Builds/containers/shared/rmcd.service
         Builds/containers/shared/update_sources.sh
-        Builds/containers/shared/update-rippled.sh
+        Builds/containers/shared/update-rmcd.sh
         Builds/containers/packaging/dpkg/build_dpkg.sh
         Builds/containers/packaging/dpkg/debian/README.Debian
         Builds/containers/packaging/dpkg/debian/conffiles
@@ -107,24 +107,24 @@ if (is_root_project)
         Builds/containers/packaging/dpkg/debian/copyright
         Builds/containers/packaging/dpkg/debian/dirs
         Builds/containers/packaging/dpkg/debian/docs
-        Builds/containers/packaging/dpkg/debian/rippled-dev.install
-        Builds/containers/packaging/dpkg/debian/rippled.install
-        Builds/containers/packaging/dpkg/debian/rippled.links
-        Builds/containers/packaging/dpkg/debian/rippled.postinst
-        Builds/containers/packaging/dpkg/debian/rippled.postrm
-        Builds/containers/packaging/dpkg/debian/rippled.preinst
-        Builds/containers/packaging/dpkg/debian/rippled.prerm
+        Builds/containers/packaging/dpkg/debian/rmcd-dev.install
+        Builds/containers/packaging/dpkg/debian/rmcd.install
+        Builds/containers/packaging/dpkg/debian/rmcd.links
+        Builds/containers/packaging/dpkg/debian/rmcd.postinst
+        Builds/containers/packaging/dpkg/debian/rmcd.postrm
+        Builds/containers/packaging/dpkg/debian/rmcd.preinst
+        Builds/containers/packaging/dpkg/debian/rmcd.prerm
         Builds/containers/packaging/dpkg/debian/rules
     )
     exclude_from_default (dpkg_container)
     add_custom_target (dpkg
       docker run
-        -e NIH_CACHE_ROOT=/opt/rippled_bld/pkg/.nih_c
-        -v ${NIH_CACHE_ROOT}/pkgbuild:/opt/rippled_bld/pkg/.nih_c
-        -v ${CMAKE_SOURCE_DIR}:/opt/rippled_bld/pkg/rippled
-        -v ${CMAKE_CURRENT_BINARY_DIR}/packages:/opt/rippled_bld/pkg/out
+        -e NIH_CACHE_ROOT=/opt/rmcd_bld/pkg/.nih_c
+        -v ${NIH_CACHE_ROOT}/pkgbuild:/opt/rmcd_bld/pkg/.nih_c
+        -v ${CMAKE_SOURCE_DIR}:/opt/rmcd_bld/pkg/rmcd
+        -v ${CMAKE_CURRENT_BINARY_DIR}/packages:/opt/rmcd_bld/pkg/out
         "$<$<BOOL:${map_user}>:--volume=/etc/passwd:/etc/passwd;--volume=/etc/group:/etc/group;--user=${DOCKER_USER_ID}:${DOCKER_GROUP_ID}>"
-        -t rippled-dpkg-builder:${container_label}
+        -t rmcd-dpkg-builder:${container_label}
       VERBATIM
       USES_TERMINAL
       COMMAND_EXPAND_LISTS
@@ -145,20 +145,20 @@ if (is_root_project)
     #
     #   mkdir bld.ci && cd bld.ci && cmake -Dpackages_only=ON -Dcontainer_label=CI_LATEST
     #   cmake --build . --target ci_container --verbose
-    #   docker tag rippled-ci-builder:CI_LATEST <DOCKERHUB_USER>/rippled-ci-builder:YYYY-MM-DD
+    #   docker tag rmcd-ci-builder:CI_LATEST <DOCKERHUB_USER>/rmcd-ci-builder:YYYY-MM-DD
     #       (change YYYY-MM-DD to match current date..or use a different
     #        tag/label scheme if you prefer)
-    #   docker push <DOCKERHUB_USER>/rippled-ci-builder:YYYY-MM-DD
+    #   docker push <DOCKERHUB_USER>/rmcd-ci-builder:YYYY-MM-DD
     #
     # ...then change the DOCKER_IMAGE line in .travis.yml :
-    #     - DOCKER_IMAGE="<DOCKERHUB_USER>/rippled-ci-builder:YYYY-MM-DD"
+    #     - DOCKER_IMAGE="<DOCKERHUB_USER>/rmcd-ci-builder:YYYY-MM-DD"
     add_custom_target (ci_container
       docker build
         --pull
         --build-arg DIST_TAG=18.04
         --build-arg GIT_COMMIT=${commit_hash}
         --build-arg CI_USE=true
-        -t rippled-ci-builder:${container_label}
+        -t rmcd-ci-builder:${container_label}
         $<$<BOOL:${ci_cache_from}>:--cache-from=${ci_cache_from}>
         -f ubuntu-builder/Dockerfile .
       WORKING_DIRECTORY  ${CMAKE_CURRENT_SOURCE_DIR}/Builds/containers
@@ -169,9 +169,9 @@ if (is_root_project)
         Builds/containers/ubuntu-builder/Dockerfile
         Builds/containers/ubuntu-builder/ubuntu_setup.sh
         Builds/containers/shared/build_deps.sh
-        Builds/containers/shared/rippled.service
+        Builds/containers/shared/rmcd.service
         Builds/containers/shared/update_sources.sh
-        Builds/containers/shared/update-rippled.sh
+        Builds/containers/shared/update-rmcd.sh
     )
     exclude_from_default (ci_container)
   else ()

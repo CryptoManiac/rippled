@@ -136,9 +136,9 @@ public:
     bool validateShards = false;
     bool ELB_SUPPORT = false;
 
-    std::vector<std::string>    IPS;                    // Peer IPs from rippled.cfg.
-    std::vector<std::string>    IPS_FIXED;              // Fixed Peer IPs from rippled.cfg.
-    std::vector<std::string>    SNTP_SERVERS;           // SNTP servers from rippled.cfg.
+    std::vector<std::string>    IPS;                    // Peer IPs from rmcd.cfg.
+    std::vector<std::string>    IPS_FIXED;              // Fixed Peer IPs from rmcd.cfg.
+    std::vector<std::string>    SNTP_SERVERS;           // SNTP servers from rmcd.cfg.
 
     enum StartUpType
     {

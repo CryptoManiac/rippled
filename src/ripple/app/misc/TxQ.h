@@ -396,9 +396,9 @@ private:
             Updates fee metrics based on the transactions in the ReadView
             for use in fee escalation calculations.
 
-            @param app Rippled Application object.
+            @param app RMCD Application object.
             @param view View of the LCL that was just closed or received.
-            @param timeLeap Indicates that rippled is under load so fees
+            @param timeLeap Indicates that rmcd is under load so fees
             should grow faster.
             @param setup Customization params.
         */

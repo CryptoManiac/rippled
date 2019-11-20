@@ -14,7 +14,7 @@ if (is_multiconfig)
   file(GLOB md_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} CONFIGURE_DEPENDS
     *.md)
   LIST(APPEND all_sources ${md_files})
-  foreach (_target secp256k1 pbufs xrpl_core rippled)
+  foreach (_target secp256k1 pbufs xrpl_core rmcd)
     get_target_property (_type ${_target} TYPE)
     if(_type STREQUAL "INTERFACE_LIBRARY")
       continue()
@@ -22,7 +22,7 @@ if (is_multiconfig)
     get_target_property (_src ${_target} SOURCES)
     list (REMOVE_ITEM all_sources ${_src})
   endforeach ()
-  target_sources (rippled PRIVATE ${all_sources})
+  target_sources (rmcd PRIVATE ${all_sources})
   set_property (
     SOURCE ${all_sources}
     APPEND
@@ -30,7 +30,7 @@ if (is_multiconfig)
   if (MSVC)
     set_property(
       DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-      PROPERTY VS_STARTUP_PROJECT rippled)
+      PROPERTY VS_STARTUP_PROJECT rmcd)
   endif ()
 
   group_sources(src)

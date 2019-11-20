@@ -23,7 +23,7 @@ optional fields easier to read:
 - The operation `x[~sfFoo]` means "return the value of 'Foo'
   if it exists, or nothing if it doesn't." This usage of the
   tilde/bitwise NOT operator is not standard outside of the
-  `rippled` codebase.
+  `rmcd` codebase.
     - As a consequence of this, `x[~sfFoo] = y[~sfFoo]`
       assigns the value of Foo from y to x, including omitting
       Foo from x if it doesn't exist in y.

@@ -82,8 +82,8 @@ enum class OperatingMode
     needed.
 
     A backend application or local client can trust a local instance of
-    rippled / NetworkOPs. However, client software connecting to non-local
-    instances of rippled will need to be hardened to protect against hostile
+    rmcd / NetworkOPs. However, client software connecting to non-local
+    instances of rmcd will need to be hardened to protect against hostile
     or unreliable servers.
 */
 class NetworkOPs

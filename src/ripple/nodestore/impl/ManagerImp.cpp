@@ -36,8 +36,8 @@ void
 ManagerImp::missing_backend()
 {
     Throw<std::runtime_error> (
-        "Your rippled.cfg is missing a [node_db] entry, "
-        "please see the rippled-example.cfg file!"
+        "Your rmcd.cfg is missing a [node_db] entry, "
+        "please see the rmcd-example.cfg file!"
         );
 }
 

@@ -172,7 +172,7 @@ class RootStoppable;
 
     @note A Stoppable may not be restarted.
 
-    The form of the Stoppable tree in the rippled application evolves as
+    The form of the Stoppable tree in the rmcd application evolves as
     the source code changes and reacts to new demands.  As of March in 2017
     the Stoppable tree had this form:
 

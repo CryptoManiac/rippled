@@ -315,7 +315,7 @@ install (
   DESTINATION include/ripple/beast/utility)
 
 #[===================================================================[
-   rippled executable
+   rmcd executable
 #]===================================================================]
 
 #[=========================================================[
@@ -323,9 +323,9 @@ install (
    versions of cmake happy. cmake 3.10+ allows
    add_executable with no sources
 #]=========================================================]
-add_executable (rippled src/ripple/app/main/Application.h)
+add_executable (rmcd src/ripple/app/main/Application.h)
 if (unity)
-  target_sources (rippled PRIVATE
+  target_sources (rmcd PRIVATE
     #[===============================[
        unity, main sources
     #]===============================]
@@ -355,7 +355,7 @@ if (unity)
     src/ripple/unity/server.cpp
     src/ripple/unity/soci_ripple.cpp)
 else ()
-  target_sources (rippled PRIVATE
+  target_sources (rmcd PRIVATE
     #[===============================[
        nounity, main sources:
          subdir: app
@@ -668,14 +668,14 @@ else ()
     src/ripple/shamap/impl/SHAMapSync.cpp
     src/ripple/shamap/impl/SHAMapTreeNode.cpp)
 endif ()
-target_link_libraries (rippled
+target_link_libraries (rmcd
   Ripple::boost
   Ripple::opts
   Ripple::libs
   Ripple::xrpl_core)
-exclude_if_included (rippled)
+exclude_if_included (rmcd)
 # define a macro for tests that might need to
 # be exluded or run differently in CI environment
 if (is_ci)
-  target_compile_definitions(rippled PRIVATE RIPPLED_RUNNING_IN_CI)
+  target_compile_definitions(rmcd PRIVATE RIPPLED_RUNNING_IN_CI)
 endif ()

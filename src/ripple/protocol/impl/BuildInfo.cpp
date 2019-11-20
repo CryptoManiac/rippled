@@ -106,7 +106,7 @@ getVersionString ()
 std::string const& getFullVersionString ()
 {
     static std::string const value =
-        "rippled-" + getVersionString();
+        "rmcd-" + getVersionString();
     return value;
 }
 

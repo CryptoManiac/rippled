@@ -44,7 +44,7 @@ contains. The fields are as follows:
 |9...end|data                 |body of the object data   |
 ---    
 The `NodeStore` provides an interface that stores, in a persistent database, a 
-collection of NodeObjects that rippled uses as its primary representation of 
+collection of NodeObjects that rmcd uses as its primary representation of 
 ledger entries. All ledger entries are stored as NodeObjects and as such, need 
 to be persisted between launches. If a NodeObject is accessed and is not in 
 memory, it will be retrieved from the database.

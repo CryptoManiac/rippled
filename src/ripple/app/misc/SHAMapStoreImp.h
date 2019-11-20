@@ -77,7 +77,7 @@ private:
     // name of state database
     std::string const dbName_ = "state";
     // prefix of on-disk nodestore backend instances
-    std::string const dbPrefix_ = "rippledb";
+    std::string const dbPrefix_ = "rmcdb";
     // check health/stop status as records are copied
     std::uint64_t const checkHealthInterval_ = 1000;
     // minimum # of ledgers to maintain for health of network
@@ -212,7 +212,7 @@ private:
     void freshenCaches();
     void clearPrior (LedgerIndex lastRotated);
 
-    // If rippled is not healthy, defer rotate-delete.
+    // If rmcd is not healthy, defer rotate-delete.
     // If already unhealthy, do not change state on further check.
     // Assume that, once unhealthy, a necessary step has been
     // aborted, so the online-delete process needs to restart
