@@ -58,9 +58,9 @@ issues(DebtDirection dir)
    There are five concrete step classes:
      DirectStepI is an IOU step between accounts
      BookStepII is an IOU/IOU offer book
-     BookStepIX is an IOU/XRP offer book
-     BookStepXI is an XRP/IOU offer book
-     XRPEndpointStep is the source or destination account for XRP
+     BookStepIX is an IOU/RMC offer book
+     BookStepXI is an RMC/IOU offer book
+     XRPEndpointStep is the source or destination account for RMC
 
    Amounts may be transformed through a step in either the forward or the
    reverse direction. In the forward direction, the function `fwd` is used to
@@ -148,7 +148,7 @@ public:
     }
 
     // for debugging. Return the src and dst accounts for a direct step
-    // For XRP endpoints, one of src or dst will be the root account
+    // For RMC endpoints, one of src or dst will be the root account
     virtual boost::optional<std::pair<AccountID,AccountID>>
     directStepAccts () const
     {

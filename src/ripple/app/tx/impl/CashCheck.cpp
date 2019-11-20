@@ -173,9 +173,9 @@ CashCheck::preclaim (PreclaimContext const& ctx)
             STAmount availableFunds {accountFunds (ctx.view,
                 (*sleCheck)[sfAccount], value, fhZERO_IF_FROZEN, ctx.j)};
 
-            // Note that src will have one reserve's worth of additional XRP
+            // Note that src will have one reserve's worth of additional RMC
             // once the check is cashed, since the check's reserve will no
-            // longer be required.  So, if we're dealing in XRP, we add one
+            // longer be required.  So, if we're dealing in RMC, we add one
             // reserve's worth to the available funds.
             if (value.native())
                 availableFunds += XRPAmount (ctx.view.fees().increment);
@@ -288,10 +288,10 @@ CashCheck::doApply ()
     {
         STAmount const sendMax {sleCheck->getFieldAmount (sfSendMax)};
 
-        // Flow() doesn't do XRP to XRP transfers.
+        // Flow() doesn't do RMC to RMC transfers.
         if (sendMax.native())
         {
-            // Here we need to calculate the amount of XRP sleSrc can send.
+            // Here we need to calculate the amount of RMC sleSrc can send.
             // The amount they have available is their balance minus their
             // reserve.
             //
@@ -310,7 +310,7 @@ CashCheck::doApply ()
             {
                 // Vote no. However the transaction might succeed if applied
                 // in a different order.
-                JLOG(j_.trace()) << "Cash Check: Insufficient XRP: "
+                JLOG(j_.trace()) << "Cash Check: Insufficient RMC: "
                     << srcLiquid.getFullText()
                     << " < " << xrpDeliver.getFullText();
                 return tecUNFUNDED_PAYMENT;
@@ -320,7 +320,7 @@ CashCheck::doApply ()
                 // Set the DeliveredAmount metadata.
                 ctx_.deliver (xrpDeliver);
 
-            // The source account has enough XRP so make the ledger change.
+            // The source account has enough RMC so make the ledger change.
             if (TER const ter {transferXRP (
                 psb, srcId, account_, xrpDeliver, viewJ)}; ter != tesSUCCESS)
             {

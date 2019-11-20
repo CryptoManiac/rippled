@@ -75,7 +75,7 @@ public:
         nt_SOURCE,     // The source account: with an issuer account, if needed.
         nt_ACCOUNTS,   // Accounts that connect from this source/currency.
         nt_BOOKS,      // Order books that connect to this currency.
-        nt_XRP_BOOK,   // The order book from this currency to XRP.
+        nt_XRP_BOOK,   // The order book from this currency to RMC.
         nt_DEST_BOOK,  // The order book to the destination currency/issuer.
         nt_DESTINATION // The destination account only.
     };
@@ -202,7 +202,7 @@ private:
     // Add order books
     static std::uint32_t const afADD_BOOKS = 0x002;
 
-    // Add order book to XRP only
+    // Add order book to RMC only
     static std::uint32_t const afOB_XRP = 0x010;
 
     // Must link to destination currency

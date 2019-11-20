@@ -93,14 +93,14 @@ public:
         // apply to ledger.
 
         // Issuer:
-        //      XRP: xrpAccount()
-        //  non-XRP: uSrcAccountID (for any issuer) or another account with
+        //      RMC: xrpAccount()
+        //  non-RMC: uSrcAccountID (for any issuer) or another account with
         //           trust node.
         STAmount const& saMaxAmountReq,             // --> -1 = no limit.
 
         // Issuer:
-        //      XRP: xrpAccount()
-        //  non-XRP: uDstAccountID (for any issuer) or another account with
+        //      RMC: xrpAccount()
+        //  non-RMC: uDstAccountID (for any issuer) or another account with
         //           trust node.
         STAmount const& saDstAmountReq,
 

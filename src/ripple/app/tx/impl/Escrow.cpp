@@ -46,16 +46,16 @@ namespace ripple {
     Escrow
     ======
 
-    Escrow is a feature of the XRP Ledger that allows you to send conditional
-    XRP payments. These conditional payments, called escrows, set aside XRP and
+    Escrow is a feature of the RMC Ledger that allows you to send conditional
+    RMC payments. These conditional payments, called escrows, set aside RMC and
     deliver it later when certain conditions are met. Conditions to successfully
     finish an escrow include time-based unlocks and crypto-conditions. Escrows
     can also be set to expire if not finished in time.
 
-    The XRP set aside in an escrow is locked up. No one can use or destroy the
-    XRP until the escrow has been successfully finished or canceled. Before the
-    expiration time, only the intended receiver can get the XRP. After the
-    expiration time, the XRP can only be returned to the sender.
+    The RMC set aside in an escrow is locked up. No one can use or destroy the
+    RMC until the escrow has been successfully finished or canceled. Before the
+    expiration time, only the intended receiver can get the RMC. After the
+    expiration time, the RMC can only be returned to the sender.
 
     For more details on escrow, including examples, diagrams and more please
     visit https://ripple.com/build/escrow/#escrow

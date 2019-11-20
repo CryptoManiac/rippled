@@ -178,7 +178,7 @@ flow (
                     if (strand[i]->isZero(r.second))
                     {
                         // A tiny input amount can cause this step to output zero.
-                        // I.e. 10^-80 IOU into an IOU -> XRP offer.
+                        // I.e. 10^-80 IOU into an IOU -> RMC offer.
                         JLOG(j.trace()) << "Limiting step found dry";
                         return Result{std::move(ofrsToRm)};
                     }
@@ -212,7 +212,7 @@ flow (
                 if (strand[i]->isZero(r.second))
                 {
                     // A tiny input amount can cause this step to output zero.
-                    // I.e. 10^-80 IOU into an IOU -> XRP offer.
+                    // I.e. 10^-80 IOU into an IOU -> RMC offer.
                     JLOG(j.trace()) << "Non-limiting step found dry";
                     return Result{std::move(ofrsToRm)};
                 }

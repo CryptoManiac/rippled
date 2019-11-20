@@ -62,7 +62,7 @@ SetTrust::preflight (PreflightContext const& ctx)
     if (badCurrency() == saLimitAmount.getCurrency ())
     {
         JLOG(j.trace()) <<
-            "Malformed transaction: specifies XRP as IOU";
+            "Malformed transaction: specifies RMC as IOU";
         return temBAD_CURRENCY;
     }
 
@@ -166,10 +166,10 @@ SetTrust::doApply ()
     //
     // Without this logic, a gateway that wanted to have a
     // new user use its services, would have to give that
-    // user enough XRP to cover not only the account reserve
+    // user enough RMC to cover not only the account reserve
     // but the incremental reserve for the trust line as
     // well. A person with no intention of using the gateway
-    // could use the extra XRP for their own purposes.
+    // could use the extra RMC for their own purposes.
 
     XRPAmount const reserveCreate ((uOwnerCount < 2)
         ? XRPAmount (beast::zero)
@@ -429,7 +429,7 @@ SetTrust::doApply ()
             JLOG(j_.trace()) <<
                 "Delay transaction: Insufficent reserve to add trust line.";
 
-            // Another transaction could provide XRP to the account and then
+            // Another transaction could provide RMC to the account and then
             // this transaction would succeed.
             terResult = tecINSUF_RESERVE_LINE;
         }

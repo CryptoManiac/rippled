@@ -301,7 +301,7 @@ private:
     // The underlying ledger entry we are dealing with
     ApplyView& view_;
 
-    // The amount of XRP that flowed if we were autobridging
+    // The amount of RMC that flowed if we were autobridging
     STAmount xrp_flow_;
 
     // The number direct crossings that we performed

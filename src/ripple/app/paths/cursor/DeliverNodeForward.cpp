@@ -180,7 +180,7 @@ TER PathCursor::deliverNodeForward (
             {
                 // ? --> OFFER --> account
                 // Input fees: vary based upon the consumed offer's owner.
-                // Output fees: none as XRP or the destination account is the
+                // Output fees: none as RMC or the destination account is the
                 // issuer.
 
                 saOutPassAct = saOutPassMax;
@@ -195,7 +195,7 @@ TER PathCursor::deliverNodeForward (
                     << " saOutPassAct=" << saOutPassAct
                     << " saOutFunded=" << saOutFunded;
 
-                // Output: Debit offer owner, send XRP or non-XPR to next
+                // Output: Debit offer owner, send RMC or non-RMC to next
                 // account.
                 resultCode = accountSend(view(),
                     node().offerOwnerAccount_,

@@ -45,7 +45,7 @@ static
 std::uint64_t const
 SYSTEM_CURRENCY_USERS = 100000000;
 
-/** Number of drops per 1 XRP */
+/** Number of drops per 1 RMC */
 static
 std::uint64_t const
 SYSTEM_CURRENCY_PARTS = 1000000;
@@ -60,11 +60,11 @@ static inline
 std::string const&
 systemCurrencyCode ()
 {
-    static std::string const code = "XRP";
+    static std::string const code = "RMC";
     return code;
 }
 
-/** The XRP ledger network's earliest allowed sequence */
+/** The RMC ledger network's earliest allowed sequence */
 static
 std::uint32_t constexpr
 XRP_LEDGER_EARLIEST_SEQ {32570};

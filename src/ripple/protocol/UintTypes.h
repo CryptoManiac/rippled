@@ -58,14 +58,14 @@ using Currency = base_uint<160, detail::CurrencyTag>;
 /** NodeID is a 160-bit hash representing one node. */
 using NodeID = base_uint<160, detail::NodeIDTag>;
 
-/** XRP currency. */
+/** RMC currency. */
 Currency const& xrpCurrency();
 
 /** A placeholder for empty currencies. */
 Currency const& noCurrency();
 
-/** We deliberately disallow the currency that looks like "XRP" because too
-    many people were using it instead of the correct XRP currency. */
+/** We deliberately disallow the currency that looks like "RMC" because too
+    many people were using it instead of the correct RMC currency. */
 Currency const& badCurrency();
 
 inline bool isXRP(Currency const& c)
@@ -73,7 +73,7 @@ inline bool isXRP(Currency const& c)
     return c == beast::zero;
 }
 
-/** Returns "", "XRP", or three letter ISO code. */
+/** Returns "", "RMC", or three letter ISO code. */
 std::string to_string(Currency const& c);
 
 /** Tries to convert a string to a Currency, returns true on success. */

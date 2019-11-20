@@ -45,7 +45,7 @@ operator<< (std::ostream& os, Issue const& x)
 
 /** Ordered comparison.
     The assets are ordered first by currency and then by account,
-    if the currency is not XRP.
+    if the currency is not RMC.
 */
 int
 compare (Issue const& lhs, Issue const& rhs)

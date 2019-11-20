@@ -193,7 +193,7 @@ public:
     // Return a map of balance changes on trust lines. The low account is the
     // first account in the key. If the two accounts are equal, the map contains
     // the total changes in currency regardless of issuer. This is useful to get
-    // the total change in XRP balances.
+    // the total change in RMC balances.
     std::map<std::tuple<AccountID, AccountID, Currency>, STAmount>
     balanceChanges (ReadView const& view) const;
 

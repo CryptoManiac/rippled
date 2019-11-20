@@ -99,7 +99,7 @@ parseHexOrBase58 (std::string const& s);
 //AccountID
 //calcAccountID (PublicKey const& pk);
 
-/** A special account that's used as the "issuer" for XRP. */
+/** A special account that's used as the "issuer" for RMC. */
 AccountID const&
 xrpAccount();
 

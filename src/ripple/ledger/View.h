@@ -78,7 +78,7 @@ accountFunds (ReadView const& view, AccountID const& id,
     STAmount const& saDefault, FreezeHandling freezeHandling,
         beast::Journal j);
 
-// Return the account's liquid (not reserved) XRP.  Generally prefer
+// Return the account's liquid (not reserved) RMC.  Generally prefer
 // calling accountHolds() over this interface.  However this interface
 // allows the caller to temporarily adjust the owner count should that be
 // necessary.

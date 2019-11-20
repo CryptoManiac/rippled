@@ -285,7 +285,7 @@ getCashFlow (ReadView const& view, CashFilter f, ApplyStateTable const& table)
 class CashDiff::Impl
 {
 private:
-    // Note differences in destroyed XRP between two ApplyStateTables.
+    // Note differences in destroyed RMC between two ApplyStateTables.
     struct DropsGone
     {
         XRPAmount lhs;
@@ -432,7 +432,7 @@ countKeys (detail::CashSummary const& lhs, detail::CashSummary const& rhs)
 int CashDiff::Impl::xrpRoundToZero () const
 {
     // The case has one OfferChange that is present on both lhs_ and rhs_.
-    // That OfferChange should have XRP for TakerGets.  There should be a 1
+    // That OfferChange should have RMC for TakerGets.  There should be a 1
     // drop difference between the TakerGets of lhsDiffs_ and rhsDiffs_.
     if (lhsDiffs_.offerChanges.size() != 1 ||
         rhsDiffs_.offerChanges.size() != 1)
@@ -452,8 +452,8 @@ int CashDiff::Impl::xrpRoundToZero () const
         smaller.offerChanges[0].second.takerGets().mantissa() != 1)
            return 0;
 
-    // The side with the smaller XRP balance in the OfferChange should have
-    // two XRP differences.  The other side should have no XRP differences.
+    // The side with the smaller RMC balance in the OfferChange should have
+    // two RMC differences.  The other side should have no RMC differences.
     if (smaller.xrpChanges.size() != 2)
         return 0;
     if (! bigger.xrpChanges.empty())
@@ -715,7 +715,7 @@ bool diffIsDust (STAmount const& v1, STAmount const& v2, std::uint8_t e10)
     STAmount const& small = v1 < v2 ? v1 : v2;
     STAmount const& large = v1 < v2 ? v2 : v1;
 
-    // Handling XRP is different from IOU.
+    // Handling RMC is different from IOU.
     if (v1.native())
     {
         std::uint64_t const s = small.mantissa();

@@ -116,7 +116,7 @@ flow (
     auto const asDeliver = toAmountSpec (deliver);
 
     // The src account may send either xrp or iou. The dst account may receive
-    // either xrp or iou. Since XRP and IOU amounts are represented by different
+    // either xrp or iou. Since RMC and IOU amounts are represented by different
     // types, use templates to tell `flow` about the amount types.
     if (srcIsXRP && dstIsXRP)
     {

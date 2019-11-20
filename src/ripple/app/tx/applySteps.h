@@ -120,7 +120,7 @@ public:
 
 /** Structure describing the consequences to the account
     of applying a transaction if the transaction consumes
-    the maximum XRP allowed.
+    the maximum RMC allowed.
 
     @see calculateConsequences
 */
@@ -238,8 +238,8 @@ std::uint64_t
 calculateBaseFee(ReadView const& view,
     STTx const& tx);
 
-/** Determine the XRP balance consequences if a transaction
-    consumes the maximum XRP allowed.
+/** Determine the RMC balance consequences if a transaction
+    consumes the maximum RMC allowed.
 
     @pre The transaction has been checked
     and validated using `preflight`

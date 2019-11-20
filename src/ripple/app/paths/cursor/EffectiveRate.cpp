@@ -30,7 +30,7 @@ effectiveRate(
     AccountID const& account2,
     boost::optional<Rate> const& rate)
 {
-    // 1:1 transfer rate for XRP
+    // 1:1 transfer rate for RMC
     if (isXRP (issue))
         return parityRate;
 

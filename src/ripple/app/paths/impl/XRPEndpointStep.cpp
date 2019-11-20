@@ -193,8 +193,8 @@ class XRPEndpointOfferCrossingStep :
 private:
 
     // For historical reasons, offer crossing is allowed to dig further
-    // into the XRP reserve than an ordinary payment.  (I believe it's
-    // because the trust line was created after the XRP was removed.)
+    // into the RMC reserve than an ordinary payment.  (I believe it's
+    // because the trust line was created after the RMC was removed.)
     // Return how much the reserve should be reduced.
     //
     // Note that reduced reserve only happens if the trust line does not
@@ -343,7 +343,7 @@ XRPEndpointStep<TDerived>::check (StrandContext const& ctx) const
     auto sleAcc = ctx.view.read (keylet::account (acc_));
     if (!sleAcc)
     {
-        JLOG (j_.warn()) << "XRPEndpointStep: can't send or receive XRP from "
+        JLOG (j_.warn()) << "XRPEndpointStep: can't send or receive RMC from "
                              "non-existent account: "
                           << acc_;
         return terNO_ACCOUNT;

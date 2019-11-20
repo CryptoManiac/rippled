@@ -221,8 +221,8 @@ PaymentSandbox::balanceHook (AccountID const& account,
     }
 
     if (isXRP(issuer) && adjustedAmt < beast::zero)
-        // A calculated negative XRP balance is not an error case. Consider a
-        // payment snippet that credits a large XRP amount and then debits the
+        // A calculated negative RMC balance is not an error case. Consider a
+        // payment snippet that credits a large RMC amount and then debits the
         // same amount. The credit can't be used but we subtract the debit and
         // calculate a negative value. It's not an error case.
         adjustedAmt.clear();
@@ -281,7 +281,7 @@ PaymentSandbox::balanceChanges (ReadView const& view) const
     using key_t = std::tuple<AccountID, AccountID, Currency>;
     // Map of delta trust lines. As a special case, when both ends of the trust
     // line are the same currency, then it's delta currency for that issuer. To
-    // get the change in XRP balance, Account == root, issuer == root, currency == XRP
+    // get the change in RMC balance, Account == root, issuer == root, currency == RMC
     std::map<key_t, STAmount> result;
 
     // populate a dictionary with low/high/currency/delta. This can be
