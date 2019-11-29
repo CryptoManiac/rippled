@@ -36,14 +36,12 @@ systemName ()
     return name;
 }
 
+/** Initial 10757000 RMCs for the genesis ledger. */
+
 /** Configure the native currency. */
 static
 std::uint64_t const
-SYSTEM_CURRENCY_GIFT = 1000;
-
-static
-std::uint64_t const
-SYSTEM_CURRENCY_USERS = 100000000;
+SYSTEM_CURRENCY_COINS = 10757000;
 
 /** Number of drops per 1 RMC */
 static
@@ -53,7 +51,7 @@ SYSTEM_CURRENCY_PARTS = 1000000;
 /** Number of drops in the genesis account. */
 static
 std::uint64_t const
-SYSTEM_CURRENCY_START = SYSTEM_CURRENCY_GIFT * SYSTEM_CURRENCY_USERS * SYSTEM_CURRENCY_PARTS;
+SYSTEM_CURRENCY_START = SYSTEM_CURRENCY_COINS * SYSTEM_CURRENCY_PARTS;
 
 /* The currency code for the native currency. */
 static inline
@@ -67,7 +65,7 @@ systemCurrencyCode ()
 /** The RMC ledger network's earliest allowed sequence */
 static
 std::uint32_t constexpr
-XRP_LEDGER_EARLIEST_SEQ {32570};
+XRP_LEDGER_EARLIEST_SEQ {1};
 
 } // ripple
 
