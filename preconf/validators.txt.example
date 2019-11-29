@@ -1,0 +1,52 @@
+# [validators]
+#   List of the validation public keys of nodes to always accept as validators.
+#
+#   Manually listing validator keys is not recommended for production networks.
+#   See validator_list_sites and validator_list_keys below.
+#
+# Examples:
+# 59JeYC3j7aYkyrUJ17aagUcbUna3qUDRR2Q3sSDFykwQZZeE7X1a VL1
+# 59LcCm2SjFXaLTF69zhV4C4PNxwj8BHVQu5r2UvVbijEwUq9tv7r VL2
+# 59MpPDcoTRhAygzyEihSeL3bTtCJ4cwU4PVu9KwxDPBVhkmUWkzD VL3
+#
+# [validator_list_sites]
+#
+#   List of URIs serving lists of recommended validators.
+#
+#   The latest list of recommended validator sites can be
+#   obtained from https://ripple.com/ripple.txt
+#
+#   Examples:
+#    https://vl.rmc.one
+#    http://127.0.0.1:8000
+#    file:///etc/opt/rmc/vl.txt
+#
+# [validator_list_keys]
+#
+#   List of keys belonging to trusted validator list publishers.
+#   Validator lists fetched from configured sites will only be considered
+#   if the list is accompanied by a valid signature from a trusted
+#   publisher key.
+#   Validator list keys should be hex-encoded.
+#
+#   The latest list of recommended validator keys can be
+#   obtained from https://ripple.com/ripple.txt
+#
+#   Examples:
+#    0345AC8A252F288F33404B39F58D4E920CDCE9B8E2E1581415EF469DF3E238A3C5
+#
+
+# The default validator list publishers that the rmcd instance
+# trusts.
+#
+# WARNING: Changing these values can cause your rmcd instance to see a
+#          validated ledger that contradicts other rmcd instances'
+#          validated ledgers (aka a ledger fork) if your validator list(s)
+#          do not sufficiently overlap with the list(s) used by others.
+# See: https://arxiv.org/pdf/1802.07242.pdf
+
+[validator_list_sites]
+https://vl.rmc.one
+
+[validator_list_keys]
+0345AC8A252F288F33404B39F58D4E920CDCE9B8E2E1581415EF469DF3E238A3C5

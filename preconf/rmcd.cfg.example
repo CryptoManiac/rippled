@@ -1,0 +1,71 @@
+[server]
+port_peer
+port_public
+
+# ssl_key = /etc/ssl/private/your.secret.key
+# ssl_cert = /etc/ssl/certs/your.crt
+# OR:
+# ssl_chain = /etc/ssl/certs/your.chain.pem
+
+[port_peer]
+port = 41235
+ip = 0.0.0.0
+protocol = peer
+
+[port_public]
+port = 8080
+ip = 0.0.0.0
+admin = 127.0.0.1
+protocol = http,rpc,ws
+
+#-------------------------------------------------------------------------------
+
+[node_size]
+huge
+
+[node_db]
+type=NuDB
+path=/var/opt/rmc/db/NuDB
+
+[database_path]
+/var/opt/rmc/db
+
+[ledger_history]
+full
+
+# This needs to be an absolute directory reference, not a relative one.
+# Modify this value as required.
+[debug_logfile]
+/var/log/rmcd/debug.log
+
+[sntp_servers]
+time.windows.com
+time.apple.com
+time.nist.gov
+pool.ntp.org
+
+# Where to find some other servers speaking the peer-to-peer protocol.
+[ips]
+peer.rmc.one 41235
+alpha.rmc.one 41235
+beta.rmc.one 41235
+
+# File containing trusted validator keys or validator list publishers.
+# Unless an absolute path is specified, it will be considered relative to the
+# folder in which the rmcd.cfg file is located.
+[validators_file]
+validators.txt
+
+# Ditto.
+[validation_quorum]
+3
+
+# Turn down default logging to save disk space in the long run.
+# Valid values here are trace, debug, info, warning, error, and fatal
+[rpc_startup]
+{ "command": "log_level", "severity": "warning" }
+
+# Defaults to 1 ("yes") so that certificates will be validated. To allow the use
+# of self-signed certificates for development or internal use, set to 0 ("no").
+[ssl_verify]
+0
