@@ -1,6 +1,6 @@
 //------------------------------------------------------------------------------
 /*
-    This file is part of rippled: https://github.com/ripple/rippled
+    This file is part of rmcd: https://github.com/RussianMiningCoin/rmcd
     Copyright 2014, Nikolaos D. Bougalis <nikb@bougalis.net>
 
     Permission to use, copy, modify, and/or distribute this software for any

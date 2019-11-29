@@ -1,7 +1,9 @@
 //------------------------------------------------------------------------------
 /*
-    This file is part of rippled: https://github.com/ripple/rippled
-    Copyright (c) 2016 Ripple Labs Inc.
+    This file is part of rmcd: https://github.com/RussianMiningCoin/rmcd
+    Copyright (c) 2019 Ripple Labs Inc.
+    Copyright (c) 2019 RMC.
+
 
     Permission to use, copy, modify, and/or distribute this software for any
     purpose  with  or without fee is hereby granted, provided that the above
