@@ -387,7 +387,7 @@ verifyHello (protocol::TMHello const& h,
         return boost::none;
     }
 
-    if (publicKeyType(*publicKey) != KeyType::secp256k1)
+    if (!isPublicKey(*publicKey))
     {
         JLOG(journal.info()) <<
             "Hello: Disconnect: Unsupported public key type.";

@@ -22,7 +22,6 @@
 
 #include <ripple/basics/Buffer.h>
 #include <ripple/basics/Slice.h>
-#include <ripple/crypto/KeyType.h> // move to protocol/
 #include <ripple/protocol/PublicKey.h>
 #include <ripple/protocol/Seed.h>
 #include <ripple/protocol/tokens.h>
@@ -119,6 +118,11 @@ template <>
 boost::optional<SecretKey>
 parseBase58 (TokenType type, std::string const& s);
 
+
+template<>
+boost::optional<SecretKey>
+parseHex (std::string const& str);
+
 inline
 std::string
 toBase58 (TokenType type, SecretKey const& sk)
@@ -144,11 +148,11 @@ randomSecretKey();
 
 /** Generate a new secret key deterministically. */
 SecretKey
-generateSecretKey (KeyType type, Seed const& seed);
+generateSecretKey (Seed const& seed);
 
 /** Derive the public key from a secret key. */
 PublicKey
-derivePublicKey (KeyType type, SecretKey const& sk);
+derivePublicKey (SecretKey const& sk);
 
 /** Generate a key pair deterministically.
 
@@ -159,11 +163,11 @@ derivePublicKey (KeyType type, SecretKey const& sk);
     corresponding to ordinal 0 for the generator.
 */
 std::pair<PublicKey, SecretKey>
-generateKeyPair (KeyType type, Seed const& seed);
+generateKeyPair (Seed const& seed, bool fCompat);
 
 /** Create a key pair using secure random numbers. */
 std::pair<PublicKey, SecretKey>
-randomKeyPair (KeyType type);
+randomKeyPair ();
 
 /** Generate a signature for a message digest.
 */
@@ -174,10 +178,9 @@ signDigest (PublicKey const& pk, SecretKey const& sk,
 
 inline
 Buffer
-signDigest (KeyType type, SecretKey const& sk,
-    uint256 const& digest)
+signDigest (SecretKey const& sk, uint256 const& digest)
 {
-    return signDigest (derivePublicKey(type, sk), sk, digest);
+    return signDigest (derivePublicKey(sk), sk, digest);
 }
 /** @} */
 
@@ -192,10 +195,9 @@ sign (PublicKey const& pk,
 
 inline
 Buffer
-sign (KeyType type, SecretKey const& sk,
-    Slice const& message)
+sign (SecretKey const& sk, Slice const& message)
 {
-    return sign (derivePublicKey(type, sk), sk, message);
+    return sign (derivePublicKey(sk), sk, message);
 }
 /** @} */
 

@@ -43,15 +43,9 @@ Json::Value doSign (RPC::Context& context)
             context.params.isMember (jss::fail_hard)
             && context.params[jss::fail_hard].asBool ());
 
-    auto ret = RPC::transactionSign (
+    return RPC::transactionSign (
         context.params, failType, context.role,
         context.ledgerMaster.getValidatedLedgerAge(), context.app);
-
-    ret[jss::deprecated] = "This command has been deprecated and will be "
-                           "removed in a future version of the server. Please "
-                           "migrate to a standalone signing tool.";
-
-    return ret;
 }
 
 } // ripple

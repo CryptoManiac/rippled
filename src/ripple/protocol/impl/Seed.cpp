@@ -102,7 +102,8 @@ parseGenericSeed (std::string const& str)
         parseBase58<PublicKey>(TokenType::NodePublic, str) ||
         parseBase58<PublicKey>(TokenType::AccountPublic, str) ||
         parseBase58<SecretKey>(TokenType::NodePrivate, str) ||
-        parseBase58<SecretKey>(TokenType::AccountSecret, str))
+        parseBase58<SecretKey>(TokenType::AccountSecret, str) ||
+        parseBase58<SecretKey>(TokenType::AccountWif, str))
     {
         return boost::none;
     }

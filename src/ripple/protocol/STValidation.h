@@ -73,7 +73,7 @@ public:
     {
         auto const spk = getFieldVL(sfSigningPubKey);
 
-        if (publicKeyType(makeSlice(spk)) != KeyType::secp256k1)
+        if (!isPublicKey(makeSlice(spk)))
         {
             JLOG (debugLog().error())
                 << "Invalid public key in validation"

@@ -147,7 +147,7 @@ SetAccount::preflight (PreflightContext const& ctx)
 
     if (auto const mk = tx[~sfMessageKey])
     {
-        if (mk->size() && ! publicKeyType ({mk->data(), mk->size()}))
+        if (mk->size() && ! isPublicKey ({mk->data(), mk->size()}))
         {
             JLOG(j.trace()) << "Invalid message key specified.";
             return telBAD_PUBLIC_KEY;
@@ -225,7 +225,7 @@ SetAccount::doApply ()
     {
         auto const spk = tx.getSigningPubKey();
 
-        if (publicKeyType (makeSlice (spk)))
+        if (isPublicKey (makeSlice (spk)))
         {
             PublicKey const signingPubKey (makeSlice (spk));
 

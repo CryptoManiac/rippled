@@ -379,6 +379,7 @@ JSS ( parent_close_time );          // out: LedgerToJson
 JSS ( parent_hash );                // out: LedgerToJson
 JSS ( partition );                  // in: LogLevel
 JSS ( passphrase );                 // in: WalletPropose
+JSS ( passphrase_compat );          // in: WalletPropose, TransactionSign
 JSS ( password );                   // in: Subscribe
 JSS ( paths );                      // in: RipplePathFind
 JSS ( paths_canonical );            // out: RipplePathFind

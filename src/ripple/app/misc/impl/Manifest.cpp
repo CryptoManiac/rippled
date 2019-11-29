@@ -77,7 +77,7 @@ boost::optional<Manifest> deserializeManifest(Slice s)
 
         auto const pk = st.getFieldVL (sfPublicKey);
 
-        if (! publicKeyType (makeSlice(pk)))
+        if (! isPublicKey (makeSlice(pk)))
             return boost::none;
 
         Manifest m;
@@ -140,7 +140,7 @@ boost::optional<Manifest> deserializeManifest(Slice s)
 
             auto const spk = st.getFieldVL(sfSigningPubKey);
 
-            if (!publicKeyType (makeSlice(spk)))
+            if (!isPublicKey (makeSlice(spk)))
                 return boost::none;
 
             m.signingKey = PublicKey(makeSlice(spk));

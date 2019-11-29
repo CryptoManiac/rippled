@@ -42,8 +42,7 @@ ValidatorKeys::ValidatorKeys(Config const& config, beast::Journal j)
         if (auto const token = ValidatorToken::make_ValidatorToken(
                 config.section(SECTION_VALIDATOR_TOKEN).lines()))
         {
-            auto const pk = derivePublicKey(
-                KeyType::secp256k1, token->validationSecret);
+            auto const pk = derivePublicKey(token->validationSecret);
             auto const m = deserializeManifest(base64_decode(token->manifest));
 
             if (! m || pk != m->signingKey)
@@ -79,8 +78,8 @@ ValidatorKeys::ValidatorKeys(Config const& config, beast::Journal j)
         }
         else
         {
-            secretKey = generateSecretKey(KeyType::secp256k1, *seed);
-            publicKey = derivePublicKey(KeyType::secp256k1, secretKey);
+            secretKey = generateSecretKey(*seed);
+            publicKey = derivePublicKey(secretKey);
             nodeID = calcNodeID(publicKey);
         }
     }

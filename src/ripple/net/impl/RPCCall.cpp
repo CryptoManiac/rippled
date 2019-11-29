@@ -729,9 +729,6 @@ private:
             jvRequest[jss::passphrase] = jvParams[index];
             index++;
 
-            if (!keyTypeFromString(jvParams[index].asString()))
-                return rpcError (rpcBAD_KEY_TYPE);
-            jvRequest[jss::key_type] = jvParams[index];
             index++;
         }
         else
@@ -771,7 +768,7 @@ private:
             if (!pkHex)
                 return false;
 
-            if (!publicKeyType(makeSlice(*pkHex)))
+            if (!isPublicKey(makeSlice(*pkHex)))
                 return false;
 
             return true;

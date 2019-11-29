@@ -18,7 +18,6 @@
 //==============================================================================
 
 #include <ripple/basics/strHex.h>
-#include <ripple/crypto/KeyType.h>
 #include <ripple/net/RPCErr.h>
 #include <ripple/protocol/ErrorCodes.h>
 #include <ripple/protocol/jss.h>
@@ -70,24 +69,8 @@ Json::Value doWalletPropose (RPC::Context& context)
 
 Json::Value walletPropose (Json::Value const& params)
 {
-    boost::optional<KeyType> keyType;
     boost::optional<Seed> seed;
     bool rippleLibSeed = false;
-
-    if (params.isMember (jss::key_type))
-    {
-        if (! params[jss::key_type].isString())
-        {
-            return RPC::expected_field_error (
-                jss::key_type, "string");
-        }
-
-        keyType = keyTypeFromString (
-            params[jss::key_type].asString());
-
-        if (!keyType)
-            return rpcError(rpcINVALID_PARAMS);
-    }
 
     if (!seed)
     {
@@ -108,11 +91,9 @@ Json::Value walletPropose (Json::Value const& params)
         }
     }
 
-    if (!keyType)
-        keyType = KeyType::secp256k1;
+    bool const compat = (params.isMember (jss::passphrase_compat) && params[jss::passphrase_compat].asBool());
 
-
-    auto const keyPair = generateKeyPair (*keyType, *seed);
+    auto const keyPair = generateKeyPair (*seed, compat);
     auto const publicKey = keyPair.first;
     auto const secretKey = keyPair.second;
 
@@ -127,7 +108,6 @@ Json::Value walletPropose (Json::Value const& params)
     obj[jss::master_key] = seed1751;
     obj[jss::account_id] = toBase58(calcAccountID(publicKey));
     obj[jss::public_key] = toBase58(TokenType::AccountPublic, publicKey);
-    obj[jss::key_type] = to_string (*keyType);
     obj[jss::public_key_hex] = strHex (publicKey);
     obj[jss::secret_key_hex] = strHex (secretKey);
     obj[jss::secret_key_wif] = toWIF (secretKey);

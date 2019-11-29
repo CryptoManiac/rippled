@@ -272,7 +272,7 @@ std::pair<bool, std::string> STTx::checkSingleSign () const
         bool const fullyCanonical = (getFlags() & tfFullyCanonicalSig);
         auto const spk = getFieldVL (sfSigningPubKey);
 
-        if (publicKeyType (makeSlice(spk)))
+        if (isPublicKey (makeSlice(spk)))
         {
             Blob const signature = getFieldVL (sfTxnSignature);
             Blob const data = getSigningData (*this);
@@ -355,7 +355,7 @@ std::pair<bool, std::string> STTx::checkMultiSign () const
 
             auto spk = signer.getFieldVL (sfSigningPubKey);
 
-            if (publicKeyType (makeSlice(spk)))
+            if (isPublicKey (makeSlice(spk)))
             {
                 Blob const signature =
                     signer.getFieldVL (sfTxnSignature);

@@ -50,14 +50,9 @@ Json::Value doSignFor (RPC::Context& context)
     auto const failHard = context.params[jss::fail_hard].asBool();
     auto const failType = NetworkOPs::doFailHard (failHard);
 
-    auto ret = RPC::transactionSignFor (
+    return RPC::transactionSignFor (
         context.params, failType, context.role,
         context.ledgerMaster.getValidatedLedgerAge(), context.app);
-
-    ret[jss::deprecated] = "This command has been deprecated and will be "
-                           "removed in a future version of the server. Please "
-                           "migrate to a standalone signing tool.";
-    return ret;
 }
 
 } // ripple

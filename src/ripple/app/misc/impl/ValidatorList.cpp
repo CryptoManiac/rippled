@@ -98,7 +98,7 @@ ValidatorList::load (
 
         auto const ret = strUnHex (key);
 
-        if (! ret || ! publicKeyType(makeSlice(*ret)))
+        if (! ret || ! isPublicKey(makeSlice(*ret)))
         {
             JLOG (j_.error()) <<
                 "Invalid validator list publisher key: " << key;
@@ -230,7 +230,7 @@ ValidatorList::applyList (
         {
             boost::optional<Blob> const ret = strUnHex(val["validation_public_key"].asString());
 
-            if (! ret || ! publicKeyType(makeSlice(*ret)))
+            if (! ret || ! isPublicKey(makeSlice(*ret)))
             {
                 JLOG (j_.error()) <<
                     "Invalid node identity: " <<

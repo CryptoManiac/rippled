@@ -175,7 +175,6 @@ install (
 install (
   FILES
     src/ripple/crypto/GenerateDeterministicKey.h
-    src/ripple/crypto/KeyType.h
     src/ripple/crypto/RFC1751.h
     src/ripple/crypto/csprng.h
   DESTINATION include/ripple/crypto)

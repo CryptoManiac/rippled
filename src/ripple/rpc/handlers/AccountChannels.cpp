@@ -39,7 +39,7 @@ void addChannel (Json::Value& jsonLines, SLE const& line)
     jDst[jss::destination_account] = to_string (line[sfDestination]);
     jDst[jss::amount] = line[sfAmount].getText ();
     jDst[jss::balance] = line[sfBalance].getText ();
-    if (publicKeyType(line[sfPublicKey]))
+    if (isPublicKey(line[sfPublicKey]))
     {
         PublicKey const pk (line[sfPublicKey]);
         jDst[jss::public_key] = toBase58 (TokenType::AccountPublic, pk);

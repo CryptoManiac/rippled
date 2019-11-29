@@ -189,7 +189,7 @@ PayChanCreate::preflight (PreflightContext const& ctx)
     if (ctx.tx[sfAccount] == ctx.tx[sfDestination])
         return temDST_IS_SRC;
 
-    if (!publicKeyType(ctx.tx[sfPublicKey]))
+    if (!isPublicKey(ctx.tx[sfPublicKey]))
         return temMALFORMED;
 
     return preflight2 (ctx);
@@ -440,7 +440,7 @@ PayChanClaim::preflight (PreflightContext const& ctx)
             return temBAD_AMOUNT;
 
         Keylet const k (ltPAYCHAN, ctx.tx[sfPayChannel]);
-        if (!publicKeyType(ctx.tx[sfPublicKey]))
+        if (!isPublicKey(ctx.tx[sfPublicKey]))
             return temMALFORMED;
         PublicKey const pk (ctx.tx[sfPublicKey]);
         Serializer msg;

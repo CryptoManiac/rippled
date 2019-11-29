@@ -1188,7 +1188,7 @@ PeerImp::onMessage(std::shared_ptr <protocol::TMPeerShardInfo> const& m)
         return badData("Missing shard indexes");
     if (m->peerchain_size() > csHopLimit)
         return badData("Invalid peer chain");
-    if (m->has_nodepubkey() && !publicKeyType(makeSlice(m->nodepubkey())))
+    if (m->has_nodepubkey() && !isPublicKey(makeSlice(m->nodepubkey())))
         return badData("Invalid public key");
 
     // Check if the message should be forwarded to another peer
@@ -1197,7 +1197,7 @@ PeerImp::onMessage(std::shared_ptr <protocol::TMPeerShardInfo> const& m)
         // Get the Public key of the last link in the peer chain
         auto const s {makeSlice(m->peerchain(
             m->peerchain_size() - 1).nodepubkey())};
-        if (!publicKeyType(s))
+        if (!isPublicKey(s))
             return badData("Invalid pubKey");
         PublicKey peerPubKey(s);
 
@@ -1641,7 +1641,7 @@ PeerImp::onMessage (std::shared_ptr <protocol::TMProposeSet> const& m)
     // Preliminary check for the validity of the signature: A DER encoded
     // signature can't be longer than 72 bytes.
     if ((boost::algorithm::clamp(sig.size(), 64, 72) != sig.size()) ||
-        (publicKeyType(makeSlice(set.nodepubkey())) != KeyType::secp256k1))
+        (!isPublicKey(makeSlice(set.nodepubkey()))))
     {
         JLOG(p_journal_.warn()) << "Proposal: malformed";
         fee_ = Resource::feeInvalidSignature;

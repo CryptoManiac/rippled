@@ -112,8 +112,8 @@ Json::Value doChannelVerify (RPC::Context& context)
             auto pkHex = strUnHex (strPk);
             if (!pkHex)
                 return rpcError(rpcPUBLIC_MALFORMED);
-            auto const pkType = publicKeyType(makeSlice(*pkHex));
-            if (!pkType)
+            auto const valid = isPublicKey(makeSlice(*pkHex));
+            if (!valid)
                 return rpcError(rpcPUBLIC_MALFORMED);
             pk.emplace(makeSlice(*pkHex));
         }

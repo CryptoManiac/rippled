@@ -41,7 +41,7 @@ namespace ripple {
 */
 void
 sign (STObject& st, HashPrefix const& prefix,
-    KeyType type, SecretKey const& sk,
+    SecretKey const& sk,
         SF_Blob const& sigField = sfSignature);
 
 /** Returns `true` if STObject contains valid signature

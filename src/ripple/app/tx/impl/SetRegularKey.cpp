@@ -32,7 +32,7 @@ SetRegularKey::calculateBaseFee (
     auto const id = tx.getAccountID(sfAccount);
     auto const spk = tx.getSigningPubKey();
 
-    if (publicKeyType (makeSlice (spk)))
+    if (isPublicKey (makeSlice (spk)))
     {
         if (calcAccountID(PublicKey (makeSlice(spk))) == id)
         {
