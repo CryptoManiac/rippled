@@ -579,6 +579,13 @@ ValidatorList::getJson() const
             }
         });
 
+    // Manifests data
+    Json::Value& jManifests = (res[jss::loaded_manifests] = Json::arrayValue);
+    validatorManifests_.for_each_manifest(
+        [&jManifests](Manifest const& manifest) {
+            jManifests.append(manifest.getJson());
+        });
+
     return res;
 }
 

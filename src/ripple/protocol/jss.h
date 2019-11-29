@@ -320,6 +320,7 @@ JSS ( load_fee );                   // out: LoadFeeTrackImp, NetworkOPs
 JSS ( local );                      // out: resource/Logic.h
 JSS ( local_txs );                  // out: GetCounts
 JSS ( local_static_keys );          // out: ValidatorList
+JSS ( loaded_manifests );           // out: ValidatorList
 JSS ( lowest_sequence );            // out: AccountInfo
 JSS ( majority );                   // out: RPC feature
 JSS ( marker );                     // in/out: AccountTx, AccountOffers,
@@ -544,7 +545,7 @@ JSS ( validated_ledger );           // out: NetworkOPs
 JSS ( validated_ledgers );          // out: NetworkOPs
 JSS ( validation_key );             // out: ValidationCreate, ValidationSeed
 JSS ( validation_private_key );     // out: ValidationCreate
-JSS ( validation_public_key );      // out: ValidationCreate, ValidationSeed
+JSS ( validation_public_key );      // out: ValidationCreate, ValidationSeed, Manifest::getJson
 JSS ( validation_quorum );          // out: NetworkOPs
 JSS ( validation_seed );            // out: ValidationCreate, ValidationSeed
 JSS ( validations );                // out: AmendmentTableImpl
@@ -556,6 +557,8 @@ JSS ( vote );                       // in: Feature
 JSS ( warning );                    // rpc:
 JSS ( workers );
 JSS ( write_load );                 // out: GetCounts
+
+JSS ( manifest );                   // out: Manifest::getJson
 
 #undef JSS
 

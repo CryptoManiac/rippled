@@ -24,6 +24,7 @@
 #include <ripple/protocol/PublicKey.h>
 #include <ripple/protocol/SecretKey.h>
 #include <ripple/beast/utility/Journal.h>
+#include <ripple/json/json_value.h>
 #include <boost/optional.hpp>
 #include <string>
 
@@ -106,6 +107,9 @@ struct Manifest
 
     /// Returns `true` if manifest revokes master key
     bool revoked () const;
+
+    Json::Value
+    getJson() const;
 
     /// Returns manifest signature
     boost::optional<Blob> getSignature () const;
