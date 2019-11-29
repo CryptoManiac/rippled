@@ -6,7 +6,7 @@ By default, an RPC handler runs as an uninterrupted task on the JobQueue.  This
 is fine for commands that are fast to compute but might not be acceptable for
 tasks that require multiple parts or are large, like a full ledger.
 
-For this purpose, the rippled RPC handler allows *suspension with continuation*
+For this purpose, the rmcd RPC handler allows *suspension with continuation*
 - a request to suspend execution of the RPC response and to continue it after
 some function or job has been executed.  A default continuation is supplied
 which simply reschedules the job on the JobQueue, or the programmer can supply
