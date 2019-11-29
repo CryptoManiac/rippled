@@ -404,6 +404,8 @@ JSS ( pubkey_publisher );           // out: ValidatorList
 JSS ( pubkey_validator );           // out: NetworkOPs, ValidatorList
 JSS ( public_key );                 // out: OverlayImpl, PeerImp, WalletPropose
 JSS ( public_key_hex );             // out: WalletPropose
+JSS ( secret_key_hex );             // out: WalletPropose
+JSS ( secret_key_wif );             // out: WalletPropose
 JSS ( published_ledger );           // out: NetworkOPs
 JSS ( publisher_lists );            // out: ValidatorList
 JSS ( quality );                    // out: NetworkOPs

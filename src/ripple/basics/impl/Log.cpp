@@ -351,6 +351,8 @@ Logs::format (std::string& output, std::string const& message,
     scrubber ("\"master_seed\"");
     scrubber ("\"master_seed_hex\"");
     scrubber ("\"passphrase\"");
+    scrubber ("\"secret_key_hex\"");
+    scrubber ("\"secret_key_wif\"");
 }
 
 //------------------------------------------------------------------------------
